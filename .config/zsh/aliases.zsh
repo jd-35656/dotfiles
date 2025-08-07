@@ -1,0 +1,10 @@
+# File system aliases
+alias ll="eza -la --icons --git" 2>/dev/null || alias ll="ls -lah"
+alias la="eza -la --icons" 2>/dev/null || alias la="ls -la"
+alias tree="eza --tree --icons" 2>/dev/null || alias tree="tree"
+alias cat="bat" 2>/dev/null || alias cat="cat"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias mkdir="mkdir -p"
+alias grep="grep --color=auto"
