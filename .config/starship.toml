@@ -1,0 +1,70 @@
+# Catppuccin Mocha Theme for Starship
+# Colors: https://github.com/catppuccin/catppuccin
+
+format = """
+[ 󰀵 ](fg:#f38ba8 bg:#1e1e2e)[](fg:#1e1e2e bg:#313244)\
+$directory[](fg:#313244 bg:#fab387)\
+$git_branch[](fg:#fab387 bg:#a6e3a1)\
+$git_status[](fg:#a6e3a1 bg:#f9e2af)\
+$python$nodejs$golang[](fg:#f9e2af)\
+[ ]()
+"""
+
+right_format = """
+[](fg:#89b4fa)\
+$cmd_duration\
+[](fg:#cba6f7 bg:#89b4fa )\
+$time\
+[](fg:#1e1e2e bg:#cba6f7)\
+$character
+"""
+
+# Module configurations
+[directory]
+format = "[ $path ]($style)"
+style = "fg:#cdd6f4 bg:#313244"
+truncation_length = 3
+truncate_to_repo = false
+
+[directory.substitutions]
+"~" = ""         # Home icon (Nerd Font)
+"Documents" = "" # File icon
+"Downloads" = "" # Download icon
+"Desktop" = ""   # Monitor icon
+"Projects" = ""  # Folder icon
+"Code" = ""      # Code icon
+
+[git_branch]
+format = "[ $branch ]($style)"
+style = "fg:#11111b bg:#fab387"
+
+[git_status]
+format = "[ $all_status ]($style)"
+style = "fg:#11111b bg:#a6e3a1"
+
+[python]
+format = "[  ]($style)"
+style = "fg:#11111b bg:#f9e2af"
+
+[nodejs]
+format = "[ ]($style)"
+style = "fg:#11111b bg:#f9e2af"
+
+[golang]
+format = "[ﳑ ]($style)"
+style = "fg:#11111b bg:#f9e2af"
+
+[character]
+success_symbol = "[ ✔](bold fg:#a6e3a1 bg:#1e1e2e)"
+error_symbol = "[ ✗](bold fg:#f38ba8 bg:#1e1e2e)"
+
+[cmd_duration]
+min_time = 2000
+format = "[ $duration ]($style)"
+style = "fg:#11111b bg:#89b4fa"
+
+[time]
+disabled = false
+time_format = "%H:%M"
+format = "[ $time ]($style)"
+style = "fg:#11111b bg:#cba6f7"
