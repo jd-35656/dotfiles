@@ -1,0 +1,75 @@
+[user]
+	name = Jitesh Sahani (JD)
+	email = jitesh.sahani@outlook.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = code --wait
+	pager = delta
+	excludesfile = ~/.gitignore_global
+	autocrlf = input
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	cm = commit -m
+	ca = commit --amend
+	lg = log --oneline --graph --decorate --all
+	last = log -1 HEAD
+	undo = reset HEAD~1 --mixed
+	unstage = reset HEAD --
+	hist = log --pretty=format:'%C(yellow)%h%Creset %ad | %s%Creset %Cgreen(%an)%Creset' --date=short
+	pushf = push --force-with-lease
+	cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master' | xargs -n 1 git branch -d"
+
+[diff]
+	colorMoved = default
+	tool = vscode
+
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+	tool = vscode
+	conflictstyle = diff3
+
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+
+[credential]
+	helper = osxkeychain
+
+[push]
+	default = simple
+	autoSetupRemote = true
+
+[pull]
+	rebase = true
+
+[rebase]
+	autoStash = true
+
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+
+[delta]
+	features = catppuccin-mocha
+	navigate = true
+	light = false
+	line-numbers = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[includeIf "gitdir:~/Projects/work/"]
+	path = ~/.gitconfig-work
+
+[includeIf "gitdir:~/Projects/personal/"]
+	path = ~/.gitconfig-personal
