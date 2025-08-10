@@ -1,0 +1,267 @@
+{
+  // ===== Editor Appearance ===== Demo
+  "editor.fontFamily": "MesloLGM Nerd Font Mono",
+  "editor.fontSize": 16,
+  "editor.lineHeight": 22,
+  "editor.fontLigatures": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.renderControlCharacters": true,
+
+  // ===== Editor Behavior =====
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "bounded",
+  "editor.wordWrapColumn": 120,
+  "editor.rulers": [120],
+  "editor.formatOnSave": true,
+  "editor.autoClosingBrackets": "always",
+  "editor.autoClosingQuotes": "always",
+
+  // ===== File Handling =====
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/__pycache__/": true
+  },
+
+  // ===== Language-Specific Settings =====
+  // Configuration Files
+  "[csv]": {
+    "editor.defaultFormatter": "mechatroner.rainbow-csv",
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "on"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "explicit"
+    }
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "redhat.vscode-xml",
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[ini]": {
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "relative"
+  },
+  "[dotenv]": {
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "off"
+  },
+
+  // Documentation
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "off",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": "always"
+    }
+  },
+  "[plaintext]": {
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "off"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always"
+    }
+  },
+
+  // Python & Jupyter
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "always",
+      "source.organizeImports": "always"
+    }
+  },
+  "[jupyter]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4,
+    "editor.wordWrap": "on",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.ruff": "always",
+      "source.organizeImports": "always"
+    }
+  },
+
+  // JavaScript & TypeScript
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "bounded",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always",
+      "source.organizeImports": "always"
+    },
+    "editor.quickSuggestions": {
+      "strings": "on"
+    }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "bounded",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always",
+      "source.organizeImports": "always"
+    },
+    "editor.quickSuggestions": {
+      "strings": "on"
+    }
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "bounded",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always",
+      "source.organizeImports": "always"
+    },
+    "editor.quickSuggestions": {
+      "strings": "on"
+    }
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "bounded",
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always",
+      "source.organizeImports": "always"
+    },
+    "editor.quickSuggestions": {
+      "strings": "on"
+    }
+  },
+
+  // Go
+  "[go]": {
+    "editor.defaultFormatter": "golang.go",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always"
+    }
+  },
+
+  // Docker
+  "[dockerfile]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll": "always"
+    }
+  },
+
+  // ===== Language Server Settings =====
+  // Python
+  "python.analysis.typeCheckingMode": "standard",
+  "python.analysis.autoImportCompletions": true,
+
+  // Jupyter
+  "jupyter.askForKernelRestart": false,
+  "jupyter.enablePlotViewer": true,
+  "jupyter.interactiveWindow.mode": "perFile",
+  "jupyter.interactiveWindow.textEditor.executeSelection": true,
+
+  // Go
+  "go.useLanguageServer": true,
+  "go.formatTool": "goimports",
+  "go.lintTool": "staticcheck",
+  "go.lintOnSave": "package",
+  "go.vetOnSave": "off",
+  "go.testOnSave": false,
+  "go.toolsManagement.autoUpdate": false,
+  "gopls": {
+    "ui.semanticTokens": true,
+    "ui.completion.usePlaceholders": true,
+    "ui.documentation.linksInHover": false,
+    "build.experimentalWorkspaceModule": true
+  },
+
+  // AWS CloudFormation
+  "yaml.customTags": [
+    "!Base64",
+    "!Cidr sequence",
+    "!And sequence",
+    "!Or sequence",
+    "!Not sequence",
+    "!Equals sequence",
+    "!If sequence",
+    "!Condition",
+    "!FindInMap sequence",
+    "!GetAtt",
+    "!GetAZs",
+    "!ImportValue",
+    "!Join sequence",
+    "!Select sequence",
+    "!Split sequence",
+    "!Sub sequence",
+    "!Sub",
+    "!Ref"
+  ],
+
+  // ===== Terminal =====
+  "terminal.integrated.defaultProfile.linux": "zsh",
+  "terminal.integrated.fontFamily": "MesloLGM Nerd Font Mono",
+
+  // ===== Workbench & UI =====
+  "workbench.tree.enableStickyScroll": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.startupEditor": "none",
+  "explorer.confirmDelete": false,
+
+  // ===== Search =====
+  "search.exclude": {
+    "**/__pycache__/": true
+  },
+
+  // ===== Updates =====
+  "update.mode": "none",
+  "update.showReleaseNotes": false,
+
+  // ===== Extension Settings =====
+  "projectManager.git.baseFolders": [
+    "/Users/jd/Desktop/Mahadev/",
+    "/Users/jd/dotfiles/"
+  ],
+  "database-client.autoSync": true,
+  "amazonQ.suppressPrompts": {
+    "amazonQChatDisclaimer": true,
+    "amazonQChatPairProgramming": true,
+    "createCredentialsProfile": false,
+    "codeWhispererNewWelcomeMessage": false,
+    "codeWhispererConnectionExpired": false,
+    "amazonQWelcomePage": false,
+    "amazonQSessionConfigurationMessage": false,
+    "minIdeVersion": false,
+    "ssoCacheError": false,
+    "amazonQLspManifestMessage": false,
+    "amazonQWorkspaceLspManifestMessage": false,
+    "amazonQSelectDeveloperProfile": false
+  },
+  "gitlens.views.scm.grouped.views": {
+    "commits": true,
+    "branches": true,
+    "remotes": true,
+    "stashes": true,
+    "tags": true,
+    "worktrees": true,
+    "contributors": true,
+    "fileHistory": false,
+    "repositories": true,
+    "searchAndCompare": false,
+    "launchpad": true
+  },
+  "redhat.telemetry.enabled": true,
+  "focus.highlightRange": "line",
+  "amazonQ.telemetry": false
+}
