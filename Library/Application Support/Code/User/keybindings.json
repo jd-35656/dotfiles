@@ -1,0 +1,151 @@
+[
+  // --- Leader-style shortcuts ---
+  // New Window
+  { "key": "ctrl+n", "command": "workbench.action.newWindow" },
+
+  // Quit Window
+  { "key": "ctrl+q", "command": "workbench.action.closeWindow" },
+
+  // Go to Editor (only when NOT in Explorer)
+  {
+    "key": "ctrl+e",
+    "command": "workbench.action.focusActiveEditorGroup",
+    "when": "!explorerViewletVisible || !listFocus"
+  },
+
+  // Go to Explorer (toggle + focus)
+  { "key": "ctrl+b", "command": "workbench.files.action.focusFilesExplorer" },
+
+  // Go to Terminal
+  { "key": "ctrl+j", "command": "workbench.action.terminal.toggleTerminal" },
+
+  // --- Explorer navigation ---
+  {
+    "key": "]",
+    "command": "list.focusDown",
+    "when": "explorerViewletVisible && listFocus"
+  },
+  {
+    "key": "[",
+    "command": "list.focusUp",
+    "when": "explorerViewletVisible && listFocus"
+  },
+  {
+    "key": "enter",
+    "command": "list.toggleExpand",
+    "when": "explorerViewletVisible && listFocus && explorerResourceIsFolder"
+  },
+  {
+    "key": "enter",
+    "command": "list.select",
+    "when": "explorerViewletVisible && listFocus && !explorerResourceIsFolder"
+  },
+
+  // --- Explorer actions ---
+  {
+    "key": "o",
+    "command": "explorer.newFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "explorer.newFolder",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "delete",
+    "command": "deleteFile",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+
+  // --- Tab switching ---
+  { "key": "ctrl+[", "command": "workbench.action.previousEditor" },
+  { "key": "ctrl+]", "command": "workbench.action.nextEditor" },
+
+  // --- File closing ---
+  { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" },
+
+  // --- Search / Replace ---
+  // Find
+  { "key": "ctrl+f", "command": "actions.find" },
+
+  // Next match
+  { "key": "ctrl+h", "command": "editor.action.nextMatchFindAction" },
+
+  // Previous match
+  { "key": "ctrl+g", "command": "editor.action.previousMatchFindAction" },
+
+  // --- Editor selection ---
+  {
+    "key": "ctrl+0",
+    "command": "cursorRightSelect",
+    "when": "editorTextFocus"
+  },
+  { "key": "ctrl+9", "command": "cursorLeftSelect", "when": "editorTextFocus" },
+  {
+    "key": "ctrl+'",
+    "command": "cursorEndSelect",
+    "when": "editorTextFocus && !editorHasSelection"
+  },
+  {
+    "key": "ctrl+'",
+    "command": "cursorDownSelect",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  { "key": "ctrl+;", "command": "cursorUpSelect", "when": "editorTextFocus" },
+
+  // Select all
+  {
+    "key": "ctrl+a",
+    "command": "editor.action.selectAll",
+    "when": "editorTextFocus"
+  },
+
+  // Copy / Cut / Paste
+  {
+    "key": "ctrl+c",
+    "command": "editor.action.clipboardCopyAction",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+x",
+    "command": "editor.action.clipboardCutAction",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+v",
+    "command": "editor.action.clipboardPasteAction",
+    "when": "editorTextFocus"
+  },
+
+  // --- Move lines ---
+  {
+    "key": "alt+]",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "alt+[",
+    "command": "editor.action.moveLinesDownAction",
+    "when": "editorTextFocus"
+  },
+
+  // --- Indent / Outdent ---
+  {
+    "key": "ctrl+tab",
+    "command": "editor.action.indentLines",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+  {
+    "key": "ctrl+`",
+    "command": "editor.action.outdentLines",
+    "when": "editorTextFocus && editorHasSelection"
+  },
+
+  // --- Commenting ---
+  {
+    "key": "ctrl+/",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  }
+]

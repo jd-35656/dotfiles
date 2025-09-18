@@ -206,7 +206,15 @@
     "!Split sequence",
     "!Sub sequence",
     "!Sub",
-    "!Ref"
+    "!Ref",
+
+    // For mkdocs.yml
+    "!ENV scalar",
+    "!ENV sequence",
+    "!relative scalar",
+    "!!python/name:builtins.str scalar",
+    "!!python/name:builtins.bool scalar",
+    "!!python/object/apply:os.path.join sequence"
   ],
 
   // ===== Terminal =====
@@ -233,6 +241,33 @@
     "/Users/jd/Desktop/Mahadev/",
     "/Users/jd/dotfiles/"
   ],
+
+  // ===== SASS/SCSS Settings =====
+  "liveSassCompile.settings.compileOnWatch": false,
+  "liveSassCompile.settings.watchOnLaunch": true,
+  "liveSassCompile.settings.useNewCompiler": true,
+  "liveSassCompile.settings.showOutputWindowOn": "Warning",
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": null,
+      "savePathReplacementPairs": {
+        "/scss": "/css"
+      }
+    },
+    {
+      "format": "compressed",
+      "extensionName": "-min.css",
+      "savePath": null,
+      "savePathReplacementPairs": {
+        "/scss": "/css"
+      },
+      "generateMap": false
+    }
+  ],
+
+  // ===== Other Settings =====
   "database-client.autoSync": true,
   "amazonQ.suppressPrompts": {
     "amazonQChatDisclaimer": true,
@@ -263,5 +298,6 @@
   },
   "redhat.telemetry.enabled": true,
   "focus.highlightRange": "line",
-  "amazonQ.telemetry": false
+  "amazonQ.telemetry": false,
+  "svg.preview.mode": "svg"
 }
