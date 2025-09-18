@@ -2,11 +2,11 @@ local M = {}
 
 -- Default workspaces configuration
 M.config = {
-  default = "workspace",
+  default = "Mahadev",
   spaces = {
     {
-      name = "workspace",
-      path = os.getenv("HOME"),
+      name = "Mahadev",
+      path = os.getenv("HOME") .. "/Desktop",
     },
     -- Add your projects here:
     -- {
