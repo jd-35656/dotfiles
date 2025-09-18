@@ -239,7 +239,8 @@
   // ===== Extension Settings =====
   "projectManager.git.baseFolders": [
     "/Users/jd/Desktop/Mahadev/",
-    "/Users/jd/dotfiles/"
+    "/Users/jd/dotfiles/",
+    "/Users/jd/Desktop/Kartikey/jd-resumes/"
   ],
 
   // ===== SASS/SCSS Settings =====
