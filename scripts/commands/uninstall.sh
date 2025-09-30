@@ -18,6 +18,7 @@ declare -A DIRS=(
   [brew-casks]="configs/brew"
   [asdf-plugins]="configs/asdf"
   [pipx-packages]="configs/pipx"
+  [gh-extensions]="configs/gh"
 )
 
 # Commands to uninstall packages
@@ -27,6 +28,7 @@ declare -A FUNCTIONS=(
   [brew-casks]="uninstall_brew_casks"
   [asdf-plugins]="uninstall_asdf_plugins"
   [pipx-packages]="uninstall_pipx_packages"
+  [gh-extensions]="uninstall_gh_extensions"
 )
 
 # Uninstall functions for each target
@@ -131,6 +133,24 @@ uninstall_pipx_packages() {
   fi
 }
 
+uninstall_gh_extensions() {
+  echo "🔹 Uninstalling GitHub extensions..."
+  local installed_extensions=$(gh extension list | tail -n +1 | awk '{print $3}' | sort | sort)
+  if [[ -f "${DIRS[gh-extensions]}/gh-extensions.txt" ]]; then
+    for extension in $(cat "${DIRS[gh-extensions]}/gh-extensions.txt"); do
+      if echo "$installed_extensions" | grep -q "$extension"; then
+        echo "  Uninstalling $extension"
+        gh extension remove "$extension" || true
+        continue
+      fi
+
+      echo "    $extension not installed"
+    done
+  else
+    echo -e "${RED}❌ File not found: ${DIRS[gh-extensions]}/gh-extensions.txt${NC}"
+    overall_success=false
+  fi
+}
 
 print_usage() {
   echo -e "${CYAN}Usage:${NC} $0 [target ...]\n"

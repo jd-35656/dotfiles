@@ -1,214 +1,165 @@
-# JD's Dotfiles
+# ✅ JD's Dotfiles
 
-This repository contains a set of configuration files, symlinks, and scripts to set up and manage various tools, packages, and extensions on your system. You can easily install, uninstall, backup, or manage symlinks for different tools using the provided `manage.sh` script.
+This repository contains a set of configuration files, symlinks, and scripts to manage and reproduce your system setup. You can install, uninstall, backup, audit, and manage symlinks for various tools using the `manage.sh` script.
 
-## Table of Contents
+---
 
-* [Installation](#installation)
-* [Usage](#usage)
+## 📑 Table of Contents
 
-  * [General Usage](#general-usage)
-  * [Subcommands](#subcommands)
+* [📦 Installation](#-installation)
+* [⚙️ Usage](#️-usage)
 
-    * [symlink](#symlink)
-    * [install](#install)
-    * [uninstall](#uninstall)
-    * [backup](#backup)
-* [Examples](#examples)
+  * [🔧 General Usage](#-general-usage)
+  * [🧩 Subcommands](#-subcommands)
 
-## Installation
+    * [`symlink`](#1-symlink)
+    * [`install`](#2-install)
+    * [`uninstall`](#3-uninstall)
+    * [`backup`](#4-backup)
+    * [`list`](#5-list)
+    * [`audit`](#6-audit)
+* [💡 Examples](#-examples)
 
-Clone this repository to your local machine:
+---
+
+## 📦 Installation
+
+Clone this repository to your machine:
 
 ```bash
 git clone https://github.com/yourusername/dotfiles.git
 cd dotfiles
 ```
 
-You can now use the `manage.sh` script to manage symlinks, installations, uninstalls, and backups.
-
-## Usage
-
-The `manage.sh` script accepts one main subcommand to perform different operations, such as managing symlinks, installing/uninstalling packages, or backing up your tool configurations.
-
-### General Usage
+Make sure `manage.sh` is executable:
 
 ```bash
-./manage.sh {symlink|install|uninstall|backup} [subcommand] [options]
+chmod +x manage.sh
 ```
 
-Where:
+---
 
-* `{symlink|install|uninstall|backup}`: The primary subcommand that controls the action.
-* `[subcommand]`: The specific action within the chosen subcommand.
-* `[options]`: Additional options or flags to control behavior.
+## ⚙️ Usage
 
-### Subcommands
+Run the main command like this:
 
-#### 1. `symlink`
-
-Manage symlinks for various packages or configuration files.
+### 🔧 General Usage
 
 ```bash
-./manage.sh symlink {link|unlink|show} [package1 package2 ...]
+./manage.sh {symlink|install|uninstall|backup|list|audit} [target ...]
 ```
 
-##### Subcommands
+* `{...}`: Subcommand for the action you want to take
+* `[target ...]`: (Optional) Limit to one or more specific tools
+* `--help`: Show help for any subcommand
 
-* **link**: Create symlinks for specified packages (all if none specified).
-* **unlink**: Remove symlinks for specified packages (all if none specified).
-* **show**: Display all current symlinks.
+---
 
-##### Options
+## 🧩 Subcommands
 
-* `-h`, `--help`: Show help information for the `symlink` subcommand.
+### 1. `symlink`
 
-Example:
+Manage symlinks for configuration files.
 
-* Create symlinks for all packages:
+```bash
+./manage.sh symlink {link|unlink|show} [target ...]
+```
 
-  ```bash
-  ./manage.sh symlink link
-  ```
+#### Subcommands
 
-* Remove symlinks for specific packages:
+* `link`: Create symlinks (all or specified)
+* `unlink`: Remove symlinks
+* `show`: Show existing symlinks and paths
 
-  ```bash
-  ./manage.sh symlink unlink package1 package2
-  ```
+---
 
-#### 2. `install`
+### 2. `install`
 
-Manage installation of packages and extensions for different tools.
+Install tools, packages, or extensions based on your tracked configuration files.
 
 ```bash
 ./manage.sh install [target ...]
 ```
 
-##### Available Targets
+---
 
-* `brew-leaves`: Install Homebrew packages.
-* `brew-casks`: Install Homebrew casks.
-* `vscode-extensions`: Install Visual Studio Code extensions.
-* `pipx-packages`: Install pipx packages.
-* `asdf-plugins`: Install asdf plugins.
+### 3. `uninstall`
 
-If no targets are specified, all targets will be installed.
-
-##### Options
-
-* `-h`, `--help`: Show help information for the `install` subcommand.
-
-Example:
-
-* Install all targets:
-
-  ```bash
-  ./manage.sh install
-  ```
-
-* Install only Visual Studio Code extensions:
-
-  ```bash
-  ./manage.sh install vscode-extensions
-  ```
-
-#### 3. `uninstall`
-
-Manage uninstallation of packages and extensions for various tools.
+Remove tools, packages, or extensions listed in your configs.
 
 ```bash
 ./manage.sh uninstall [target ...]
 ```
 
-##### Available Targets
+---
 
-* `brew-leaves`: Uninstall Homebrew packages.
-* `brew-casks`: Uninstall Homebrew casks.
-* `vscode-extensions`: Uninstall Visual Studio Code extensions.
-* `pipx-packages`: Uninstall pipx packages.
-* `asdf-plugins`: Uninstall asdf plugins.
+### 4. `backup`
 
-If no targets are specified, all targets will be uninstalled.
-
-##### Options
-
-* `-h`, `--help`: Show help information for the `uninstall` subcommand.
-
-Example:
-
-* Uninstall all targets:
-
-  ```bash
-  ./manage.sh uninstall
-  ```
-
-* Uninstall only Visual Studio Code extensions:
-
-  ```bash
-  ./manage.sh uninstall vscode-extensions
-  ```
-
-#### 4. `backup`
-
-Backup the lists of installed packages and extensions for various tools.
+Back up your current system state (installed packages/extensions) to text files for version control.
 
 ```bash
 ./manage.sh backup [target ...]
 ```
 
-##### Available Targets
+---
 
-* `brew-leaves`: Backup Homebrew packages.
-* `brew-casks`: Backup Homebrew casks.
-* `vscode-extensions`: Backup Visual Studio Code extensions.
-* `pipx-packages`: Backup pipx packages.
-* `asdf-plugins`: Backup asdf plugins.
+### 5. `list`
 
-If no targets are specified, all targets will be backed up.
+Show the contents of your backed-up config files. This does **not** check your current system — it only shows what's version-controlled.
 
-##### Options
+```bash
+./manage.sh list [target ...]
+```
 
-* `-h`, `--help`: Show help information for the `backup` subcommand.
+---
 
-Example:
+### 6. `audit`
 
-* Backup all targets:
+Compare your current system state against the version-controlled `.txt` files.
 
-  ```bash
-  ./manage.sh backup
-  ```
+```bash
+./manage.sh audit [target ...]
+```
 
-* Backup only Visual Studio Code extensions:
+* 🔎 Lists what’s **missing** or **extra**
+* Helps you sync system state with your dotfiles
 
-  ```bash
-  ./manage.sh backup vscode-extensions
-  ```
+---
 
-## Examples
+## 💡 Examples
 
-Here are some example use cases:
+### ✅ Install everything
 
-* **Install all packages**:
+```bash
+./manage.sh install
+```
 
-  ```bash
-  ./manage.sh install
-  ```
+### 🧼 Uninstall just VS Code extensions
 
-* **Uninstall only Homebrew leaves** (packages not managed by other tools):
+```bash
+./manage.sh uninstall vscode-extensions
+```
 
-  ```bash
-  ./manage.sh uninstall brew-leaves
-  ```
+### 💾 Backup current system state
 
-* **Backup all configurations**:
+```bash
+./manage.sh backup
+```
 
-  ```bash
-  ./manage.sh backup
-  ```
+### 📋 List what's in your tracked config
 
-* **Show all current symlinks**:
+```bash
+./manage.sh list gh-extensions
+```
 
-  ```bash
-  ./manage.sh symlink show
-  ```
+### 🔍 Audit what's missing or extra
+
+```bash
+./manage.sh audit pipx-packages
+```
+
+### 🔗 Show all active symlinks
+
+```bash
+./manage.sh symlink show
+```

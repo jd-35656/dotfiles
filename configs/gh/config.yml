@@ -1,0 +1,43 @@
+version: 1
+
+# Use SSH for Git operations (preferred for key-based auth)
+git_protocol: ssh
+
+# Preferred text editor for issues, PRs, etc.
+editor: code
+
+# Prompting behavior
+prompt: enabled
+prefer_editor_prompt: enabled
+
+# Pager program (use "cat" to disable paging altogether)
+pager: less
+
+# Use system default browser (do not override)
+browser:
+
+# Productivity aliases for faster CLI workflows
+aliases:
+    co: pr checkout # Check out a pull request
+    pv: pr view --web # View PR in browser
+    pl: pr list # List open PRs
+    pa: pr create --assignee @me # Create PR and assign to self
+    pm: pr merge # Merge a PR
+    rb: repo clone # Clone a repo
+    rv: repo view --web # View repo in browser
+    ci: issue create # Create issue
+    il: issue list # List issues
+    iv: issue view # View issue
+    me: api user # Who am I?
+    g: gist create --public # Create public gist
+
+# Color and accessibility
+color_labels: enabled
+accessible_colors: disabled
+accessible_prompter: disabled
+
+# Visual spinner for progress
+spinner: enabled
+
+# Leave empty unless using custom networking
+http_unix_socket:

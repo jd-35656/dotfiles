@@ -18,6 +18,7 @@ declare -A DIRS=(
   [brew-casks]="configs/brew"
   [asdf-plugins]="configs/asdf"
   [pipx-packages]="configs/pipx"
+  [gh-extensions]="configs/gh"
 )
 
 # Commands to install packages
@@ -27,6 +28,7 @@ declare -A INSTALL_FUNCTIONS=(
   [brew-casks]="install_brew_casks"
   [asdf-plugins]="install_asdf_plugins"
   [pipx-packages]="install_pipx_packages"
+  [gh-extensions]="install_gh_extensions"
 )
 
 # Install functions for each target
@@ -119,6 +121,24 @@ install_pipx_packages() {
     done
   else
     echo -e "${RED}❌ File not found: ${DIRS[pipx-packages]}/pipx-packages.txt${NC}"
+    overall_success=false
+  fi
+}
+
+install_gh_extensions() {
+  echo "🔹 Installing GitHub extensions..."
+  local installed_extensions=$(gh extension list | tail -n +1 | awk '{print $3}' | sort | sort)
+  if [[ -f "${DIRS[gh-extensions]}/gh-extensions.txt" ]]; then
+    for extension in $(cat "${DIRS[gh-extensions]}/gh-extensions.txt"); do
+      if echo "$installed_extensions" | grep -q "$extension"; then
+        echo "    $extension already installed"
+        continue
+      fi
+
+      gh extension install "$extension" || true
+    done
+  else
+    echo -e "${RED}❌ File not found: ${DIRS[gh-extensions]}/gh-extensions.txt${NC}"
     overall_success=false
   fi
 }
