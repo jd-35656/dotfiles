@@ -35,7 +35,7 @@ zshbench() {
 zshmodules() {
   echo "Loaded zsh modules:"
   echo "├── exports.zsh"
-  echo "├── options.zsh" 
+  echo "├── options.zsh"
   echo "├── plugins.zsh"
   echo "├── completions.zsh"
   echo "├── keybindings.zsh"

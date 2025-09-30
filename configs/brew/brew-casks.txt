@@ -1,0 +1,17 @@
+alt-tab
+docker-desktop
+font-meslo-lg-nerd-font
+google-chrome
+keepassxc
+libreoffice
+obs
+postman
+raycast
+rectangle
+scroll-reverser
+sleek-app
+stats
+visual-studio-code
+vlc
+wezterm
+zen

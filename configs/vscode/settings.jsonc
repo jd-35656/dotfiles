@@ -301,5 +301,19 @@
   "redhat.telemetry.enabled": true,
   "focus.highlightRange": "line",
   "amazonQ.telemetry": false,
-  "svg.preview.mode": "svg"
+  "svg.preview.mode": "svg",
+  "[dockercompose]": {
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced",
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": false,
+      "strings": true
+    },
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  },
+  "[github-actions-workflow]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml"
+  }
 }

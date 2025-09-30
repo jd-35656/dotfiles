@@ -1,0 +1,6 @@
+cfn-lint
+copier
+hatch
+httpie
+nox
+pre-commit

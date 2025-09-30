@@ -1,0 +1,29 @@
+{
+  "git": {
+    ".gitconfig": "~/.gitconfig",
+    ".gitignore_global": "~/.gitignore_global"
+  },
+  "nvim": {
+    "init.lua": "~/.config/nvim/init.lua",
+    "lazy-lock.json": "~/.config/nvim/lazy-lock.json",
+    "lazyvim.json": "~/.config/nvim/lazyvim.json",
+    "lua": "~/.config/nvim/lua"
+  },
+  "starship": {
+    "starship.toml": "~/.config/starship.toml"
+  },
+  "vscode": {
+    "keybindings.jsonc": "~/Library/Application Support/Code/User/keybindings.json",
+    "settings.jsonc": "~/Library/Application Support/Code/User/settings.json"
+  },
+  "wezterm": {
+    "config": "~/.config/wezterm/config",
+    "utils": "~/.config/wezterm/utils",
+    "wezterm.lua": "~/.config/wezterm/wezterm.lua"
+  },
+  "zsh": {
+    ".zprofile": "~/.zprofile",
+    ".zsh": "~/.config/.zsh",
+    ".zshrc": "~/.zshrc"
+  }
+}

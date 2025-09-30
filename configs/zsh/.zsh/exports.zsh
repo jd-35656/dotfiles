@@ -7,6 +7,7 @@ export LESS="-R"
 # PATH configuration
 export PATH="$HOME/.local/bin:$PATH"              # pipx, local binaries
 export PATH="$HOME/.asdf/shims:$HOME/.asdf/bin:$PATH"  # ASDF version manager
+export PATH="$HOME/custombin/bin:$PATH"
 
 # History configuration
 export HISTFILE=~/.zsh_history
