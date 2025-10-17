@@ -17,6 +17,7 @@ jq
 k9s
 kubernetes-cli
 make
+mas
 moreutils
 neovim
 pipx
