@@ -25,6 +25,7 @@
   hist = log --pretty=format:'%C(yellow)%h%Creset %ad | %s%Creset %Cgreen(%an)%Creset' --date=short
   pushf = push --force-with-lease
   cleanup = !git branch --merged | grep -v '\\*\\|main\\|master' | xargs -n 1 git branch -d
+	clean-reset = "!f() { \\\n  git stash clear && \\\n  git checkout main && \\\n  git branch | grep -v \"main\" | xargs -r git branch -D && \\\n  git tag | xargs -r git tag -d && \\\n  git reset --hard && \\\n  git clean -fd && \\\n  git pull --tags origin main; \\\n}; f"
 
 
 [diff]
