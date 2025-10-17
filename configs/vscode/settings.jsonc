@@ -67,7 +67,8 @@
     "editor.lineNumbers": "off",
     "editor.codeActionsOnSave": {
       "source.fixAll.markdownlint": "always"
-    }
+    },
+    "files.trimTrailingWhitespace": false
   },
   "[plaintext]": {
     "editor.wordWrap": "on",
