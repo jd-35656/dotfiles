@@ -123,3 +123,248 @@ myip() { curl -s ifconfig.me }
 # File search
 ff() { find . -type f -name "*$1*" }
 fd() { find . -type d -name "*$1*" }
+
+
+master_updater() {
+    # Configuration
+    local exit_code=0
+    local start_time=$(date +%s)
+
+    # Print header
+    echo "════════════════════════════════════════════════════════════"
+    echo "🚀 MASTER UPDATE"
+    echo "Started: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "════════════════════════════════════════════════════════════\n"
+
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # STEP 1: Homebrew
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    echo "┌─────────────────────────────────────────────────────────┐"
+    echo "│ STEP 1/5: Homebrew                                      │"
+    echo "└─────────────────────────────────────────────────────────┘"
+
+    echo "  → Updating Homebrew repositories..."
+    if brew update > /dev/null 2>&1; then
+        echo "  ✓ Repositories updated"
+    else
+        echo "  ✗ Failed to update repositories"
+        exit_code=1
+    fi
+
+    echo "  → Upgrading packages (including casks)..."
+    if brew upgrade --greedy; then
+        echo "  ✓ Packages upgraded"
+    else
+        echo "  ✗ Failed to upgrade packages"
+        exit_code=1
+    fi
+
+    echo "  → Cleaning up old versions and cache..."
+    if brew cleanup --prune=all; then
+        echo "  ✓ Cleanup complete"
+    else
+        echo "  ✗ Cleanup failed"
+        exit_code=1
+    fi
+
+    echo ""
+
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # STEP 2: pipx
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    echo "┌─────────────────────────────────────────────────────────┐"
+    echo "│ STEP 2/5: pipx Python Applications                      │"
+    echo "└─────────────────────────────────────────────────────────┘"
+
+    echo "  → Upgrading all pipx packages..."
+    if pipx upgrade-all; then
+        echo "  ✓ All pipx packages upgraded"
+    else
+        echo "  ✗ Failed to upgrade pipx packages"
+        exit_code=1
+    fi
+
+    echo ""
+
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # STEP 3: Mac App Store
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    echo "┌─────────────────────────────────────────────────────────┐"
+    echo "│ STEP 3/5: Mac App Store                                 │"
+    echo "└─────────────────────────────────────────────────────────┘"
+
+    echo "  → Checking for App Store updates..."
+    local mas_outdated=$(mas outdated 2>/dev/null)
+
+    if [ -z "$mas_outdated" ]; then
+        echo "  ✓ All App Store apps are up to date"
+    else
+        echo "  → Found updates for:"
+        echo "$mas_outdated" | sed 's/^/    /'
+        echo "  → Installing updates..."
+
+        if mas upgrade; then
+            echo "  ✓ App Store updates installed"
+        else
+            echo "  ✗ Failed to install App Store updates"
+            exit_code=1
+        fi
+    fi
+
+    echo ""
+
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # STEP 4: asdf Plugin Repositories
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    echo "┌─────────────────────────────────────────────────────────┐"
+    echo "│ STEP 4/5: asdf Plugin Repositories                      │"
+    echo "└─────────────────────────────────────────────────────────┘"
+
+    echo "  → Updating all asdf plugin repositories..."
+    if asdf plugin update --all > /dev/null 2>&1; then
+        echo "  ✓ Plugin repositories updated"
+    else
+        echo "  ✗ Failed to update plugin repositories"
+        exit_code=1
+    fi
+
+    echo ""
+
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # STEP 5: asdf Package Updates
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    echo "┌─────────────────────────────────────────────────────────┐"
+    echo "│ STEP 5/5: asdf Packages (Install Latest & Cleanup)      │"
+    echo "└─────────────────────────────────────────────────────────┘"
+
+    # Get list of installed plugins
+    local plugins=$(asdf plugin list 2>/dev/null)
+
+    if [ -z "$plugins" ]; then
+        echo "  ℹ  No asdf plugins installed"
+    else
+        local total_plugins=$(echo "$plugins" | wc -l | xargs)
+        local current_plugin=0
+        local updated_count=0
+        local skipped_count=0
+        local failed_count=0
+
+        echo "  → Processing $total_plugins plugin(s)...\n"
+
+        echo "$plugins" | while read -r plugin; do
+            # Skip empty lines
+            [ -z "$plugin" ] && continue
+
+            ((current_plugin++))
+
+            echo "  [$current_plugin/$total_plugins] Processing: $plugin"
+
+            # Get latest version
+            echo "    → Fetching latest version..."
+            local latest=$(asdf latest "$plugin" 2>/dev/null)
+
+            if [ -z "$latest" ]; then
+                echo "    ✗ Could not determine latest version"
+                ((failed_count++))
+                echo ""
+                continue
+            fi
+
+            echo "    → Latest available: $latest"
+
+            # Get current version from asdf list (line with asterisk)
+            # Output: " *1.25.4" or "  1.25.3" or " *1.25.4"
+            local current=$(asdf list "$plugin" 2>/dev/null | grep '\*' | sed 's/\*//g' | xargs)
+
+            if [ -n "$current" ]; then
+                echo "    → Current version: $current"
+            else
+                current=""
+                echo "    → Current version: (none set)"
+            fi
+
+            # Check if already on latest
+            if [ -n "$current" ] && [ "$current" = "$latest" ]; then
+                echo "    ✓ Already on latest version"
+                ((skipped_count++))
+                echo ""
+                continue
+            fi
+
+            # Install latest version
+            echo "    → Installing $latest..."
+            if asdf install "$plugin" "$latest" > /dev/null 2>&1; then
+                echo "    ✓ Installation successful"
+            else
+                echo "    ✗ Installation failed"
+                ((failed_count++))
+                echo ""
+                continue
+            fi
+
+            # Set as global default
+            echo "    → Setting $latest as global default..."
+            if asdf set -u "$plugin" "$latest" > /dev/null 2>&1; then
+                echo "    ✓ Global version set"
+            else
+                echo "    ✗ Failed to set global version"
+                ((failed_count++))
+                echo ""
+                continue
+            fi
+
+            # Remove old versions
+            echo "    → Removing old versions..."
+            local old_versions=$(asdf list "$plugin" 2>/dev/null | grep -v "$latest")
+
+            if [ -z "$old_versions" ]; then
+                echo "    ℹ  No old versions to remove"
+            else
+                local removed_count=0
+                echo "$old_versions" | while read -r old_version; do
+                    # Trim whitespace and remove asterisks
+                    old_version=$(echo "$old_version" | xargs | sed 's/\*//g')
+
+                    # Skip empty lines and the latest version
+                    [ -z "$old_version" ] && continue
+                    [ "$old_version" = "$latest" ] && continue
+
+                    if asdf uninstall "$plugin" "$old_version" > /dev/null 2>&1; then
+                        echo "      ✓ Removed $old_version"
+                        ((removed_count++))
+                    else
+                        echo "      ✗ Failed to remove $old_version"
+                    fi
+                done
+
+                echo "    ✓ Cleanup complete"
+            fi
+
+            echo "    ✓ $plugin successfully updated to $latest"
+            ((updated_count++))
+            echo ""
+        done
+    fi
+
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    # Final Summary
+    # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    local end_time=$(date +%s)
+    local duration=$((end_time - start_time))
+
+    echo "════════════════════════════════════════════════════════════"
+    echo "📊 SUMMARY"
+    echo "────────────────────────────────────────────────────────────"
+    echo "  Duration: ${duration}s"
+
+    if [ $exit_code -eq 0 ]; then
+        echo "  Status: ✅ All updates completed successfully"
+    else
+        echo "  Status: ⚠️  Completed with some errors"
+    fi
+
+    echo "  Finished: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "════════════════════════════════════════════════════════════"
+
+    return $exit_code
+}
